@@ -1,0 +1,16 @@
+<html lang=en>
+  <head>
+    <script src="https://unpkg.com/htmx.org@1.9.6" integrity="sha384-FhXw7b6AlE/jyjlZH5iHa/tTe9EpJ1Y55RjcgPbjeWMskSxZt1v9qkxLJWNJaGni" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <style>
+      .smooth {
+        transition: all 1s ease-in;
+      }
+    </style>
+    <div id="color-demo" class="smooth" style="color:red"
+          hx-get="/colors" hx-swap="outerHTML" hx-trigger="every 1s">
+      Color Swap Demo
+    </div>
+  </body>
+</html>
