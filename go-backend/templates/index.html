@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script
+      src="https://unpkg.com/htmx.org@1.9.6"
+      integrity="sha384-FhXw7b6AlE/jyjlZH5iHa/tTe9EpJ1Y55RjcgPbjeWMskSxZt1v9qkxLJWNJaGni"
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      /* Shop header styles */
+      header {
+        padding: 10px;
+        background-color: beige;
+      }
+
+      nav {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+      }
+
+      nav a {
+        display: inline-block;
+        padding: 15px;
+        background-color: #ccc;
+        border: none;
+        cursor: pointer;
+        text-decoration: none;
+        color: #333;
+      }
+
+      nav a:hover {
+        background-color: #ddd;
+      }
+
+      .btn {
+        padding: 10px;
+        background-color: #ccc;
+        border: none;
+        cursor: pointer;
+      }
+
+      .btn:hover {
+        background-color: #ddd;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1 style="font-size: 24px; text-align: center">HTMX Demo webshop</h1>
+      <nav>
+        <div class="nav-links" hx-boost="true">
+          <a href="/">Home</a>
+          <a href="/items">Food</a>
+          <a href="/beverages">Beverages</a>
+          <a href="/toys">Toys</a>
+          <a href="/used-cars">Used Cars</a>
+        </div>
+        <a href="/cart">Cart</a>
+      </nav>
+    </header>
+    <div id="body"></div>
+    <div>
+      <button
+        class="btn"
+        hx-post="/submit"
+        hx-prompt="Enter a string"
+        hx-confirm="Are you sure?"
+        hx-target="#response"
+      >
+        Prompt Submission
+      </button>
+      <div id="response"></div>
+    </div>
+    <button class="btn" hx-get="/getItems" hx-target="#items">Get Items</button>
+    <div id="items"></div>
+  </body>
+</html>
