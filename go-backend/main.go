@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"fmt"
 	"net/http"
+	"strconv"
 	"text/template"
 
 	_ "github.com/lib/pq"
@@ -26,7 +27,14 @@ func returnResponse(w http.ResponseWriter, r *http.Request) {
 func spitOutItems(w http.ResponseWriter, r *http.Request) {
 	db := getDBConnection()
 	defer db.Close()
-	items := loadNextItems(db, -1, 5)
+	firstIndex, err := strconv.Atoi(r.URL.Query().Get("firstIndex"))
+	if err != nil {
+		panic(err)
+	}
+	items := loadNextItems(db, firstIndex, 5)
+	if len(items) < 5 {
+		items = append(items, loadNextItems(db, -1, 5-len(items))...)
+	}
 	// items = []Item{
 	// 	{Id: 1, Name: "test", Price: 1.0, ImageURL: "test"},
 	// 	{Id: 2, Name: "test2", Price: 2.0, ImageURL: "test2"},
@@ -78,8 +86,15 @@ func getDBConnection() *sql.DB {
 }
 
 func main() {
+	fs := http.FileServer(http.Dir("static"))
+	http.Handle("/static/", http.StripPrefix("/static/", fs))
+
 	body := func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "templates/index.html")
+		db := getDBConnection()
+		defer db.Close()
+		items := loadNextItems(db, -1, 5)
+		tmpl := template.Must(template.ParseFiles("templates/index.html"))
+		tmpl.Execute(w, items)
 	}
 	http.HandleFunc("/", body)
 	http.HandleFunc("/getItems", spitOutItems)

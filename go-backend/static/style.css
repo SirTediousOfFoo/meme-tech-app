@@ -1,0 +1,62 @@
+/* Shop header styles */
+header {
+  padding: 10px;
+  background-color: beige;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+nav a {
+  display: inline-block;
+  padding: 15px;
+  background-color: #ccc;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  color: #333;
+}
+
+nav a:hover {
+  background-color: #ddd;
+}
+
+.btn {
+  padding: 10px;
+  background-color: #ccc;
+  border: none;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #ddd;
+}
+
+.scrollbtn {
+  bottom: 50px;
+  right: 70px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #ccc;
+  border: none;
+  cursor: pointer;
+  float: right;
+}
+
+.item {
+  width: 210px;
+  height: 210px;
+  border: 1px solid black;
+  display: inline-block;
+  margin: 10px;
+}
+
+#scrollable {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

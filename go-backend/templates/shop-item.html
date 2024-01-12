@@ -1,5 +1,5 @@
 {{/* an html snippet which takes the Item struct array, contains a div with a name, price and image for a webshop product with inline CSS for it */}}
-
+<div id="scrollable" >
 {{ range . }}
 <div  style="width: 210px; height: 210px; border: 1px solid black; display: inline-block; margin: 10px;">
 <h3> Name: {{ .Name }} </h3>
@@ -7,4 +7,11 @@
 <img src="{{ .ImageURL }}" alt="{{ .Name }}-picture" style="width: 100px; height: 100px;">
 </div>
 {{ end }}
-
+<button
+        class="scrollbtn"
+        hx-get="/getItems?firstIndex={{ (index . 0).Id}}"
+        hx-target="#scrollable"
+      >
+        Get Items
+      </button>
+</div>

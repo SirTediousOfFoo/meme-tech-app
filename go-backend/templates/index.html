@@ -6,44 +6,7 @@
       integrity="sha384-FhXw7b6AlE/jyjlZH5iHa/tTe9EpJ1Y55RjcgPbjeWMskSxZt1v9qkxLJWNJaGni"
       crossorigin="anonymous"
     ></script>
-    <style>
-      /* Shop header styles */
-      header {
-        padding: 10px;
-        background-color: beige;
-      }
-
-      nav {
-        display: flex;
-        justify-content: space-between;
-        gap: 10px;
-      }
-
-      nav a {
-        display: inline-block;
-        padding: 15px;
-        background-color: #ccc;
-        border: none;
-        cursor: pointer;
-        text-decoration: none;
-        color: #333;
-      }
-
-      nav a:hover {
-        background-color: #ddd;
-      }
-
-      .btn {
-        padding: 10px;
-        background-color: #ccc;
-        border: none;
-        cursor: pointer;
-      }
-
-      .btn:hover {
-        background-color: #ddd;
-      }
-    </style>
+    <link rel="stylesheet" href="/static/style.css">
   </head>
   <body>
     <header>
@@ -59,7 +22,6 @@
         <a href="/cart">Cart</a>
       </nav>
     </header>
-    <div id="body"></div>
     <div>
       <button
         class="btn"
@@ -72,7 +34,27 @@
       </button>
       <div id="response"></div>
     </div>
-    <button class="btn" hx-get="/getItems" hx-target="#items">Get Items</button>
+    <div id="scrollable">
+      {{ range . }}
+      <div class="item" >
+        <h3>Name: {{ .Name }}</h3>
+        <p>Price: {{ .Price }}</p>
+        <img
+          src="{{ .ImageURL }}"
+          alt="{{ .Name }}-picture"
+          style="width: 100px; height: 100px"
+        />
+      </div>
+      {{ end }}
+      <button
+        class="scrollbtn"
+        hx-get="/getItems?firstIndex={{ (index . 0).Id}}"
+        hx-target="#scrollable"
+      >
+        Get Items
+      </button>
+    </div>
+
     <div id="items"></div>
   </body>
 </html>
